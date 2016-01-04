@@ -12,16 +12,18 @@ int calcInterval = 100;
 
 // The number of the onboard LED pin is 13.
 const int ledPin =  13;
-
 // Thun sensor inputs.
 // Cadence pins.
 int pinCadenceA = 2; // Brown
 int pinCadenceB = 4; // Blue
 // Torque pin.
 int torqPin = A3; // Grey
-
 // Uno board pins 5 and 6 are PWM 980 Hz.
 int throttlePin = 6;
+// One of the motor hall sensor wires.
+int pinMotorSpeed = 7;
+// Wheel magnet.
+int wheelSpeed = 8;
 
 void setup() {
   Serial.begin(9600);
@@ -32,6 +34,9 @@ void setup() {
   pinMode(pinCadenceB, INPUT);
   // Setup torque.
   pinMode(torqPin, INPUT);
+  // Throttle.
+  pinMode(throttlePin, OUTPUT);
+  pinMode(pinMotorSpeed, INPUT);
 } 
 
 void loop() {
@@ -162,7 +167,10 @@ void cadenceCalcValue() {
 
 // Variable to keep the throttle value.
 int throttleOutput = 0;
-
+int throttleRamp = 100; // ms
+// analogWrite values from 0 to 255
+byte throttleMin = 1 * 50; // 1 volt.
+byte throttleMax = 190; // 200 is 4 volts.
 
 // CONSOLE
 
